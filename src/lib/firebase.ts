@@ -4,12 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "your-app-id"
+  apiKey: "AIzaSyASJ9FzgFKuqZUvOEBGuoa-Do7WgtWoNTc",
+  authDomain: "chess-comu.firebaseapp.com",
+  databaseURL: "https://chess-comu-default-rtdb.firebaseio.com",
+  projectId: "chess-comu",
+  storageBucket: "chess-comu.firebasestorage.app",
+  messagingSenderId: "472807391440",
+  appId: "1:472807391440:web:ddb67dd355ccbd121dded5"
 };
 
 // Initialize Firebase
