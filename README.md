@@ -1,64 +1,81 @@
-# Welcome to your Lovable project
+# AIHaven - AI Companion Platform
 
-## Project info
+A modern AI companion platform built with React, TypeScript, Tailwind CSS, and Firebase.
 
-**URL**: https://lovable.dev/projects/45e2f203-8925-4fff-a3f6-1362f54e1544
+## Features
 
-## How can I edit this code?
+- 🤖 AI Companion Gallery
+- 🔐 Firebase Authentication
+- 🔥 Real-time Database with Firestore
+- 📱 Responsive Design
+- 🎨 Modern Dark Theme
+- ⚡ Admin Panel for Content Management
 
-There are several ways of editing your application.
+## Firebase Setup
 
-**Use Lovable**
+1. Create a Firebase project at [https://firebase.google.com/](https://firebase.google.com/)
+2. Enable Authentication (Email/Password)
+3. Create a Firestore database
+4. Copy your Firebase config from Project Settings
+5. Replace the config in `src/lib/firebase.ts`:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/45e2f203-8925-4fff-a3f6-1362f54e1544) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```typescript
+const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-project.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "your-app-id"
+};
 ```
 
-**Edit a file directly in GitHub**
+## Getting Started
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-**Use GitHub Codespaces**
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+3. Open [http://localhost:5173](http://localhost:5173) in your browser
 
-## What technologies are used for this project?
+## Admin Panel
 
-This project is built with:
+- Login with your Firebase account
+- Access the admin panel via the Settings button in the header
+- Manage companions, content, and site settings in real-time
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Technology Stack
+
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Shadcn/ui
+- **Backend**: Firebase (Auth, Firestore, Storage)
+- **Icons**: Lucide React
+- **State Management**: React Hooks
+
+## Project Structure
+
+```
+src/
+├── components/         # React components
+├── hooks/             # Custom React hooks
+├── lib/               # Utility libraries
+├── pages/             # Page components
+└── assets/            # Static assets
+```
+
+## Firebase Collections
+
+- `companions` - AI companion data
+- `settings` - Site configuration
+- `users` - User profiles
+
+Replace the Firebase configuration with your own project credentials to get started!
 
 ## How can I deploy this project?
 

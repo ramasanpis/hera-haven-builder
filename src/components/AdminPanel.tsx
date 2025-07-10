@@ -18,6 +18,8 @@ import {
   Image as ImageIcon 
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useFirestore } from "@/hooks/useFirestore";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AdminPanelProps {
   open: boolean;
@@ -25,15 +27,12 @@ interface AdminPanelProps {
 }
 
 const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
+  const { user } = useAuth();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("companions");
-
-  // Mock data - in real app this would come from database
-  const [companions, setCompanions] = useState([
-    { id: "1", name: "Aria", age: 22, status: "active", lastActive: "2 min ago" },
-    { id: "2", name: "Luna", age: 20, status: "active", lastActive: "5 min ago" },
-    { id: "3", name: "Zoe", age: 25, status: "offline", lastActive: "1 hour ago" },
-  ]);
+  
+  // Firebase integration
+  const { documents: companions, addDocument, updateDocument, deleteDocument } = useFirestore('companions');
 
   const [siteSettings, setSiteSettings] = useState({
     siteName: "AIHaven",
@@ -52,28 +51,47 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
     });
   };
 
-  const handleAddCompanion = () => {
+  const handleAddCompanion = async () => {
     const newCompanion = {
-      id: Date.now().toString(),
       name: "New Companion",
       age: 20,
       status: "active",
       lastActive: "Just now"
     };
-    setCompanions([...companions, newCompanion]);
-    toast({
-      title: "Companion Added",
-      description: "New companion has been created.",
-    });
+    try {
+      await addDocument(newCompanion);
+      toast({
+        title: "Companion Added",
+        description: "New companion has been created.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to add companion",
+        variant: "destructive"
+      });
+    }
   };
 
-  const handleDeleteCompanion = (id: string) => {
-    setCompanions(companions.filter(c => c.id !== id));
-    toast({
-      title: "Companion Deleted",
-      description: "Companion has been removed.",
-    });
+  const handleDeleteCompanion = async (id: string) => {
+    try {
+      await deleteDocument(id);
+      toast({
+        title: "Companion Deleted",
+        description: "Companion has been removed.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete companion",
+        variant: "destructive"
+      });
+    }
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -126,7 +144,7 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
                       <div>
                         <h4 className="font-semibold">{companion.name}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Age {companion.age} • {companion.lastActive}
+                          {companion.personality || "Age 20"} • {companion.lastActive || "Just now"}
                         </p>
                       </div>
                     </div>
